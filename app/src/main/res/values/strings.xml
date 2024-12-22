@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="email_hint">Masukkan email Anda</string>
+    <string name="password_hint">Masukkan kata sandi</string>
+    <string name="login_button_text">Masuk</string>
+    <string name="base_url">base_url</string>
+
+
+</resources>
