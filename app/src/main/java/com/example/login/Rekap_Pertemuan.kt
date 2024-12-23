@@ -35,6 +35,14 @@ class RekapPertemuan : ComponentActivity() {
 
 @Composable
 fun RekapPertemuanUI() {
+    val tableData = remember {
+        listOf(
+            TableRow("2024", "Matematika"),
+            TableRow("2024", "Fisika"),
+            TableRow("2024", "Kimia")
+        )
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         // Header dengan warna abu-abu muda
         Box(
@@ -67,6 +75,11 @@ fun RekapPertemuanUI() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Tampilkan Tabel Rekap
+            RekapTabel(tableData)
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Tombol OK dengan warna custom
             Button(
                 onClick = { /* Lakukan aksi */ },
@@ -83,6 +96,44 @@ fun RekapPertemuanUI() {
                         fontWeight = FontWeight.Bold // Teks tebal
                     )
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun RekapTabel(tableData: List<TableRow>) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Tabel Header
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Gray)
+                .padding(8.dp)
+        ) {
+            Text("Tahun", modifier = Modifier.weight(1f), style = TextStyle(fontWeight = FontWeight.Bold))
+            Text("Mata Kuliah", modifier = Modifier.weight(2f), style = TextStyle(fontWeight = FontWeight.Bold))
+            Text("Pilih", modifier = Modifier.weight(1f), style = TextStyle(fontWeight = FontWeight.Bold))
+        }
+
+        // Tabel Data
+        LazyColumn {
+            items(tableData) { row ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .background(Color(0xFFEAEAEA))
+                ) {
+                    Text(row.tahun, modifier = Modifier.weight(1f))
+                    Text(row.mataKuliah, modifier = Modifier.weight(2f))
+                    Button(
+                        onClick = { /* Aksi saat button di-klik */ },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Pilih")
+                    }
+                }
             }
         }
     }
@@ -194,6 +245,11 @@ fun MataKuliahDropdown() {
         }
     }
 }
+
+data class TableRow(
+    val tahun: String,
+    val mataKuliah: String
+)
 
 @Preview(showBackground = true)
 @Composable
