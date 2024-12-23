@@ -28,7 +28,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.login.R
 import com.example.login.SettingActivity
 import com.example.login.CatatanPertemuanActivity
-
+import com.example.AbsensiPraktikum.AbsensiPraktikumActivity
+import com.example.presenz.AbsensiUjianActivity
 
 class MenuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,9 +95,16 @@ fun FeatureGrid() {
                                     val intent = Intent(context, PerubahanAbsensiActivity::class.java)
                                     context.startActivity(intent)
                                 }
+                                "Absen Praktikum" -> {
+                                    val intent = Intent(context, AbsensiPraktikumActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+                                "Absen Ujian" -> {
+                                    val intent = Intent(context, AbsensiUjianActivity::class.java)
+                                    context.startActivity(intent)
+                                }
 
                             }
-
                         }
                     )
                 }

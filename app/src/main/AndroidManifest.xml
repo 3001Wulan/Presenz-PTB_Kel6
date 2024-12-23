@@ -74,17 +74,20 @@
         </activity>
 
         <activity
-            android:name="com.example.presenz.AbsensiUjianActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Login">
-        </activity>
-
-        <activity
             android:name="com.example.presenz.PerubahanAbsensiActivity"
             android:exported="true"
             android:theme="@style/Theme.Login">
         </activity>
-
+        <activity
+            android:name="com.example.AbsensiPraktikum.AbsensiPraktikumActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+        <activity
+            android:name="com.example.presenz.AbsensiUjianActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
     </application>
 
 </manifest>
