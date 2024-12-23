@@ -15,7 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 
@@ -34,11 +33,13 @@ fun AttendanceScreen() {
     var selectedFaculty by remember { mutableStateOf("") }
     var selectedProgram by remember { mutableStateOf("") }
     var selectedCourse by remember { mutableStateOf("") }
+    var expandedFaculty by remember { mutableStateOf(false) }
+    var expandedProgram by remember { mutableStateOf(false) }
+    var expandedCourse by remember { mutableStateOf(false) }
 
-    // Warna background untuk setiap card
-    var facultyBackgroundColor by remember { mutableStateOf(Color(0xFFBABDB8)) } // Contoh warna
-    var programBackgroundColor by remember { mutableStateOf(Color(0xFFBABDB8)) } // Contoh warna
-    var courseBackgroundColor by remember { mutableStateOf(Color(0xFFBABDB8)) } // Contoh warna
+    val faculties = listOf("Fakultas Teknologi Informasi", "Fakultas Teknik")
+    val programs = listOf("Sistem Informasi", "Teknik Komputer", "Informatika")
+    val courses = listOf("Pemrograman Teknologi Bergerak", "E-Commerce")
 
     Column(
         modifier = Modifier
@@ -46,21 +47,19 @@ fun AttendanceScreen() {
             .background(Color(0xFFF8F9FA))
             .padding(16.dp)
     ) {
-        // Header dengan tombol kembali, judul, dan kotak "Karina"
+        // Header
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFD9D9D9), RoundedCornerShape(8.dp))
                 .padding(16.dp)
         ) {
-            // Row untuk tombol Kembali dan Judul
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Tombol Kembali
                 IconButton(
                     onClick = { /* Handle Back */ },
                     modifier = Modifier.padding(end = 8.dp)
@@ -68,28 +67,26 @@ fun AttendanceScreen() {
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                 }
 
-                // Judul
                 Text(
                     text = "Perubahan Absensi",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
-                    modifier = Modifier.weight(1f) // Membuat teks perubahaan absensi berada di sebelah kanan
+                    modifier = Modifier.weight(1f)
                 )
             }
 
-            // Kotak yang berisi "Karina" dan NIP
             Box(
                 modifier = Modifier
                     .wrapContentWidth()
-                    .height(IntrinsicSize.Min) // Ukuran kotak disesuaikan dengan tinggi konten
+                    .height(IntrinsicSize.Min)
                     .background(Color(0xFFE8EFF8), RoundedCornerShape(8.dp))
-                    .padding(horizontal = 80.dp, vertical = 10.dp) // Menambah padding horizontal agar kotak lebih lebar
-                    .align(Alignment.CenterHorizontally) // Menempatkan kotak di tengah secara horizontal
+                    .padding(horizontal = 80.dp, vertical = 10.dp)
+                    .align(Alignment.CenterHorizontally)
             ) {
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally, // Menempatkan teks di dalam kotak di tengah secara horizontal
-                    verticalArrangement = Arrangement.Center // Menempatkan teks di tengah secara vertikal
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Text("Karina", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black)
                     Text("Nip.12334", fontSize = 14.sp, color = Color.Black)
@@ -99,67 +96,113 @@ fun AttendanceScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Kartu untuk Fakultas, Program, dan Mata Kuliah
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = CardDefaults.cardColors(containerColor = facultyBackgroundColor)
+        // Fakultas Dropdown
+        ExposedDropdownMenuBox(
+            expanded = expandedFaculty,
+            onExpandedChange = { expandedFaculty = it },
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+            OutlinedTextField(
+                value = selectedFaculty,
+                onValueChange = { selectedFaculty = it },
+                label = { Text("Fakultas") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedFaculty)
+                },
+                readOnly = true,
+                modifier = Modifier.fillMaxWidth().menuAnchor(),
+            )
+            ExposedDropdownMenu(
+                expanded = expandedFaculty,
+                onDismissRequest = { expandedFaculty = false }
             ) {
-                Text("Pilih Fakultas", fontSize = 16.sp, color = Color.Black)
+                faculties.forEach { faculty ->
+                    DropdownMenuItem(
+                        text = { Text(faculty) },
+                        onClick = {
+                            selectedFaculty = faculty
+                            expandedFaculty = false
+                        }
+                    )
+                }
             }
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = CardDefaults.cardColors(containerColor = programBackgroundColor)
+        // Program Dropdown
+        ExposedDropdownMenuBox(
+            expanded = expandedProgram,
+            onExpandedChange = { expandedProgram = it },
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+            OutlinedTextField(
+                value = selectedProgram,
+                onValueChange = { selectedProgram = it },
+                label = { Text("Jurusan") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedProgram)
+                },
+                readOnly = true,
+                modifier = Modifier.fillMaxWidth().menuAnchor(),
+            )
+            ExposedDropdownMenu(
+                expanded = expandedProgram,
+                onDismissRequest = { expandedProgram = false }
             ) {
-                Text("Pilih Jurusan", fontSize = 16.sp, color = Color.Black)
+                programs.forEach { program ->
+                    DropdownMenuItem(
+                        text = { Text(program) },
+                        onClick = {
+                            selectedProgram = program
+                            expandedProgram = false
+                        }
+                    )
+                }
             }
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = CardDefaults.cardColors(containerColor = courseBackgroundColor)
+        // Mata Kuliah Dropdown
+        ExposedDropdownMenuBox(
+            expanded = expandedCourse,
+            onExpandedChange = { expandedCourse = it },
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+            OutlinedTextField(
+                value = selectedCourse,
+                onValueChange = { selectedCourse = it },
+                label = { Text("Mata Kuliah") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCourse)
+                },
+                readOnly = true,
+                modifier = Modifier.fillMaxWidth().menuAnchor(),
+            )
+            ExposedDropdownMenu(
+                expanded = expandedCourse,
+                onDismissRequest = { expandedCourse = false }
             ) {
-                Text("Pilih Mata Kuliah", fontSize = 16.sp, color = Color.Black)
+                courses.forEach { course ->
+                    DropdownMenuItem(
+                        text = { Text(course) },
+                        onClick = {
+                            selectedCourse = course
+                            expandedCourse = false
+                        }
+                    )
+                }
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Pilihan Pertemuan (Kartu)
-        MeetingOptionCard("Pertemuan 1 kamis 12/01/24 (13.00-15.00)")
-        Spacer(modifier = Modifier.height(8.dp))
-        MeetingOptionCard("Pertemuan 2 kamis 19/01/24 (13.00-15.00)")
-        Spacer(modifier = Modifier.height(8.dp))
-        MeetingOptionCard("Pertemuan 3 kamis 25/01/24 (13.00-15.00)")
+        // Conditional Meeting Option Cards
+        if (selectedCourse.isNotEmpty()) {
+            MeetingOptionCard("Pertemuan 1 Kamis 12/01/24 (13.00-15.00)")
+            Spacer(modifier = Modifier.height(8.dp))
+            MeetingOptionCard("Pertemuan 2 Kamis 19/01/24 (13.00-15.00)")
+            Spacer(modifier = Modifier.height(8.dp))
+            MeetingOptionCard("Pertemuan 3 Kamis 25/01/24 (13.00-15.00)")
+        }
     }
 }
 
@@ -176,11 +219,11 @@ fun MeetingOptionCard(meetingInfo: String) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFBABDB8))
-                .padding(12.dp), // Mengurangi padding untuk ukuran yang lebih pas
+                .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(meetingInfo, fontSize = 12.sp, color = Color.Black) // Ukuran font lebih kecil
+            Text(meetingInfo, fontSize = 12.sp, color = Color.Black)
             Button(
                 onClick = { /* Handle selection */ },
                 shape = RoundedCornerShape(8.dp),
@@ -191,7 +234,6 @@ fun MeetingOptionCard(meetingInfo: String) {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
