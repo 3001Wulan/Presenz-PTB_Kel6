@@ -52,6 +52,39 @@
             android:theme="@style/Theme.Login">
         </activity>
 
+        <!-- MenuActivity untuk Menu Halaman Utama -->
+        <activity
+            android:name="com.example.presenz.MenuActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+
+        <!-- ProfilActivity untuk Profil Pengguna -->
+        <activity
+            android:name="com.example.presenz.ProfilActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+
+        <!-- CatatanPertemuanActivity untuk Catatan Pertemuan -->
+        <activity
+            android:name=".CatatanPertemuanActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+
+        <activity
+            android:name="com.example.presenz.AbsensiUjianActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+
+        <activity
+            android:name="com.example.presenz.PerubahanAbsensiActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+
     </application>
 
 </manifest>

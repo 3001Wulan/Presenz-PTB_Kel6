@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.login.network.RetrofitClient
 import com.example.login.model.LoginRequest
-import com.example.login.model.LoginResponse
+import com.example.presenz.MenuActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,7 +82,7 @@ class LoginActivity : ComponentActivity() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Password field with visibility toggle
+            // Password field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -95,7 +95,7 @@ class LoginActivity : ComponentActivity() {
                             painter = painterResource(
                                 id = if (isPasswordVisible) R.drawable.ic_password else R.drawable.ic_password
                             ),
-                            contentDescription = if (isPasswordVisible) "Hide password" else "Show password"
+                            contentDescription = "Toggle password visibility"
                         )
                     }
                 }
@@ -103,25 +103,21 @@ class LoginActivity : ComponentActivity() {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Login button with loading state
+            // Login button
             Button(
                 onClick = {
                     if (username.isNotEmpty() && password.isNotEmpty()) {
                         isLoading = true
                         performLogin(username, password) { success, message ->
                             isLoading = false
-                            if (success) {
-                                navigateToNextScreen()
-                            } else {
-                                Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
-                            }
+                            Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
+                            navigateToNextScreen() // Selalu navigasi ke MenuActivity
                         }
                     } else {
                         Toast.makeText(this@LoginActivity, "Please enter username and password", Toast.LENGTH_SHORT).show()
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF73A0D7)),
                 enabled = !isLoading
             ) {
                 if (isLoading) {
@@ -148,7 +144,7 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun navigateToNextScreen() {
-        val intent = Intent(this@LoginActivity, SettingActivity::class.java)
+        val intent = Intent(this@LoginActivity, MenuActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -166,24 +162,19 @@ class LoginActivity : ComponentActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val loginRequest = LoginRequest(username, password)
-                val response = RetrofitClient.apiService.loginUser(loginRequest) // Memanggil loginUser
+                val response = RetrofitClient.apiService.loginUser(loginRequest)
                 if (response.isSuccessful) {
-                    val loginResponse = response.body()
                     withContext(Dispatchers.Main) {
-                        if (loginResponse?.status == "success") {
-                            onResult(true, "Login berhasil!")
-                        } else {
-                            onResult(false, loginResponse?.message ?: "Login gagal")
-                        }
+                        onResult(true, "Login successful")
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        onResult(false, "Error server: ${response.message()}")
+                        onResult(false, "Server error: ${response.message()}")
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    onResult(false, "Error jaringan: ${e.localizedMessage}")
+                    onResult(false, "Network error: ${e.localizedMessage}")
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.example.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -42,68 +43,63 @@ class RegisterActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFDCE6F4)) // Background color
+                .background(Color(0xFFDCE6F4))
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Logo
-            val logo: Painter = painterResource(id = R.drawable.logo) // Replace with your logo resource
+            val logo: Painter = painterResource(id = R.drawable.logo)
             Image(painter = logo, contentDescription = "Logo", modifier = Modifier.size(100.dp))
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Register Title
             Text("REGISTER", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // First Name Field
             InputFieldWithIcon(
                 value = firstName,
                 onValueChange = { firstName = it },
                 placeholder = "Input your first name here",
-                icon = painterResource(id = R.drawable.ic_user) // Replace with your icon resource
+                icon = painterResource(id = R.drawable.ic_user)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Last Name Field
             InputFieldWithIcon(
                 value = lastName,
                 onValueChange = { lastName = it },
                 placeholder = "Input your last name here",
-                icon = painterResource(id = R.drawable.ic_user1) // Replace with your icon resource
+                icon = painterResource(id = R.drawable.ic_user1)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Email Field
             InputFieldWithIcon(
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Input your email address here",
-                icon = painterResource(id = R.drawable.ic_email) // Replace with your icon resource
+                icon = painterResource(id = R.drawable.ic_email)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Password Field
             InputFieldWithIcon(
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Input your password here",
-                icon = painterResource(id = R.drawable.ic_lock), // Replace with your icon resource
+                icon = painterResource(id = R.drawable.ic_lock),
                 isPassword = true
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Register Button
             Button(
                 onClick = {
                     if (firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                         Toast.makeText(this@RegisterActivity, "Registration successful!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
                         finish()
                     } else {
                         Toast.makeText(this@RegisterActivity, "Please fill all fields", Toast.LENGTH_SHORT).show()
@@ -134,7 +130,6 @@ class RegisterActivity : ComponentActivity() {
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icon
             Image(
                 painter = icon,
                 contentDescription = null,

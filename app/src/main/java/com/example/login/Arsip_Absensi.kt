@@ -22,6 +22,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.text.font.FontWeight
+import com.example.login.R
 
 class ArsipAbsensi : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
