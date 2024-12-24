@@ -124,11 +124,11 @@ fun AbsensiList() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Daftar Arsip Absensi
-        AbsensiItem(name = "Karina", category = "Regular 2024/2025")
+        AbsensiItem(name = "Karina", category = "Regular\nE-Commerce\nGanjil 2024")
         Spacer(modifier = Modifier.height(16.dp))
-        AbsensiItem(name = "Karina", category = "Praktikum 2023/2024")
+        AbsensiItem(name = "Karina", category = "Praktikum\nData Mining\nGenap 2023")
         Spacer(modifier = Modifier.height(16.dp))
-        AbsensiItem(name = "Karina", category = "Ujian Pemrograman Teknologi Bergerak 2022/2023")
+        AbsensiItem(name = "Karina", category = "Ujian\nE-Commerce\nGanjil 2024")
     }
 }
 
@@ -166,7 +166,7 @@ fun AbsensiItem(name: String, category: String) {
                 )
                 Text(
                     text = category,
-                    style = TextStyle(fontSize = 14.sp, color = Color.Gray)
+                    style = TextStyle(fontSize = 14.sp, color = Color.Black)
                 )
             }
 
