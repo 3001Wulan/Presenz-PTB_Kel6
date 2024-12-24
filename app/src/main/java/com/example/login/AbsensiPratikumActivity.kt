@@ -1,4 +1,4 @@
-package com.example.absensipratikum
+package com.example.AbsensiPraktikum
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class AbsensiPraktikum : ComponentActivity() {
+class AbsensiPraktikumActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

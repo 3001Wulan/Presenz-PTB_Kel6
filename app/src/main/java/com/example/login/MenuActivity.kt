@@ -1,5 +1,6 @@
 package com.example.presenz
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,13 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import com.example.login.R
+import com.example.login.SettingActivity
+import com.example.login.CatatanPertemuanActivity
+import com.example.AbsensiPraktikum.AbsensiPraktikumActivity
+import com.example.presenz.AbsensiUjianActivity
 
-class Menu : ComponentActivity() {
+class MenuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,7 +42,7 @@ class Menu : ComponentActivity() {
 
 @Composable
 fun MenuScreen() {
-    val backgroundImage: Painter = painterResource(id = R.drawable.backgorund)
+    val backgroundImage: Painter = painterResource(id = R.drawable.background)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -55,6 +61,7 @@ fun MenuScreen() {
 
 @Composable
 fun FeatureGrid() {
+    val context = LocalContext.current
     val features = listOf(
         Pair("Kolaborasi Dosen", Icons.Filled.People),
         Pair("Absen Hybrid", Icons.Filled.Cloud),
@@ -76,7 +83,29 @@ fun FeatureGrid() {
                     FeatureCard(
                         title = feature.first,
                         icon = feature.second,
-                        modifier = Modifier.weight(1f).padding(8.dp)
+                        modifier = Modifier.weight(1f).padding(8.dp),
+                        onClick = {
+                            when (feature.first) {
+                                "Catatan Pertemuan" -> {
+                                    val intent =
+                                        Intent(context, CatatanPertemuanActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+                                "Perubahan Absensi" -> {
+                                    val intent = Intent(context, PerubahanAbsensiActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+                                "Absen Praktikum" -> {
+                                    val intent = Intent(context, AbsensiPraktikumActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+                                "Absen Ujian" -> {
+                                    val intent = Intent(context, AbsensiUjianActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+
+                            }
+                        }
                     )
                 }
             }
@@ -85,11 +114,11 @@ fun FeatureGrid() {
 }
 
 @Composable
-fun FeatureCard(title: String, icon: androidx.compose.ui.graphics.vector.ImageVector, modifier: Modifier = Modifier) {
+fun FeatureCard(title: String, icon: androidx.compose.ui.graphics.vector.ImageVector, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Card(
         modifier = modifier
             .aspectRatio(1f)
-            .clickable {},
+            .clickable { onClick() },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -122,6 +151,7 @@ fun FeatureCard(title: String, icon: androidx.compose.ui.graphics.vector.ImageVe
 
 @Composable
 fun BottomNavigationBar() {
+    val context = LocalContext.current
     BottomNavigation(
         modifier = Modifier
             .fillMaxWidth()
@@ -143,12 +173,18 @@ fun BottomNavigationBar() {
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.Settings, contentDescription = "Settings", modifier = Modifier.size(45.dp)) },
             selected = false,
-            onClick = { /* Tindakan untuk tombol Settings */ }
+            onClick = {
+                val intent = Intent(context, SettingActivity::class.java)
+                context.startActivity(intent)
+            }
         )
         BottomNavigationItem(
             icon = { Icon(Icons.Filled.Person, contentDescription = "Profil", modifier = Modifier.size(45.dp)) },
             selected = false,
-            onClick = { /* Tindakan untuk tombol Profil */ }
+            onClick = {
+                val intent = Intent(context, ProfilActivity::class.java)
+                context.startActivity(intent)
+            }
         )
     }
 }

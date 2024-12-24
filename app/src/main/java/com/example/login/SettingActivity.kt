@@ -158,6 +158,7 @@ fun BottomNavigationBar() {
                 contentDescription = "Profile",
                 tint = MaterialTheme.colorScheme.onSurface, // Set warna ikon
                 modifier = Modifier.size(32.dp) // Ukuran ikon lebih besar
+
             )
         }
     }
