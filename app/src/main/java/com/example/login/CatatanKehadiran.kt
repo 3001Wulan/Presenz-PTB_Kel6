@@ -21,8 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
 import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import com.example.login.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +80,7 @@ fun AttendanceScreen() {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                // Gambar foto profil diambil dari URL
+                // Gambar foto profil diambil dari drawable
                 Box(
                     modifier = Modifier
                         .size(80.dp)
@@ -87,9 +88,9 @@ fun AttendanceScreen() {
                         .background(Color.Gray),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Memuat gambar dari URL menggunakan Coil
+                    // Memuat gambar dari folder drawable menggunakan painterResource
                     Image(
-                        painter = rememberImagePainter("foto"), // Ganti dengan URL gambar yang valid
+                        painter = painterResource(id = R.drawable.profil2), // Ganti dengan nama file gambar di drawable
                         contentDescription = "Foto Profil",
                         modifier = Modifier.fillMaxSize()
                     )

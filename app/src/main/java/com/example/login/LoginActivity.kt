@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.login.network.RetrofitClient
 import com.example.login.model.LoginRequest
+import com.example.presenz.HomeActivity
 import com.example.presenz.MenuActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -144,7 +145,7 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun navigateToNextScreen() {
-        val intent = Intent(this@LoginActivity, MenuActivity::class.java)
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }

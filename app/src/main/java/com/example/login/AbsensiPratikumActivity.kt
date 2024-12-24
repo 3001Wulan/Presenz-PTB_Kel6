@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.login.R
 
 class AbsensiPraktikumActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ fun AbsensiPraktikumContent() {
     Scaffold(
         topBar = {
             SmallTopAppBar(
-                title = { Text("Pencatatan sesi Pratikum", fontSize = 16.sp) },
+                title = { Text("Absensi Praktikum", fontSize = 16.sp) },
                 navigationIcon = {
                     IconButton(onClick = { /* Handle Back Action */ }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
@@ -69,11 +70,10 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(Color(0xFFF0F4FF))
     ) {
-        // Section with Avatar and Info, same background as Header
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFD9D9D9)) // Same color as the header
+                .background(Color(0xFFD9D9D9))
                 .padding(vertical = 16.dp)
         ) {
             Row(
@@ -82,32 +82,30 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                // Avatar Box
                 Box(
                     modifier = Modifier
                         .size(64.dp)
                         .background(Color.Gray, CircleShape)
                 ) {
                     Image(
-                        painter = painterResource(id = android.R.drawable.ic_menu_camera),
+                        painter = painterResource(id = R.drawable.profil),
                         contentDescription = "Profile Picture",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                // Name and Role
                 Column {
                     Text(
                         "Ratna",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
-                        color = Color.Black // Adjust to ensure readability
+                        color = Color.Black
                     )
                     Text(
                         "LEA",
                         fontSize = 16.sp,
-                        color = Color.Gray // Adjust text contrast for better visibility
+                        color = Color.Gray
                     )
                 }
             }
@@ -115,7 +113,6 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Label and Dropdown for Fakultas
         Text(
             text = "Fakultas",
             fontSize = 16.sp,
@@ -123,13 +120,8 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             color = Color.Black
         )
-        DropdownFieldWithButton(
-            label = "Pilih Fakultas",
-            selectedValue = selectedFakultas,
-            onValueChange = { selectedFakultas = it }
-        )
+        DropdownField("Pilih Fakultas", selectedFakultas) { selectedFakultas = it }
 
-        // Label and Dropdown for Prodi
         Text(
             text = "Prodi",
             fontSize = 16.sp,
@@ -139,7 +131,6 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
         )
         DropdownField("Pilih Jurusan", selectedProdi) { selectedProdi = it }
 
-        // Label and Dropdown for Mata Kuliah
         Text(
             text = "Mata Kuliah",
             fontSize = 16.sp,
@@ -149,7 +140,6 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
         )
         DropdownField("Pilih Mata Kuliah", selectedMataKuliah) { selectedMataKuliah = it }
 
-        // Label and Dropdown for Pertemuan
         Text(
             text = "Pertemuan",
             fontSize = 16.sp,
@@ -159,7 +149,6 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
         )
         DropdownField("Pilih Pertemuan", selectedPertemuan) { selectedPertemuan = it }
 
-        // Label and Dropdown for Waktu
         Text(
             text = "Waktu",
             fontSize = 16.sp,
@@ -171,7 +160,6 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Action Buttons
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -182,7 +170,6 @@ fun AbsensiPraktikumBody(modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Composable
 fun DropdownField(label: String, selectedValue: String, onValueChange: (String) -> Unit) {
@@ -219,24 +206,6 @@ fun DropdownField(label: String, selectedValue: String, onValueChange: (String) 
                     }
                 )
             }
-        }
-    }
-}
-
-@Composable
-fun DropdownFieldWithButton(label: String, selectedValue: String, onValueChange: (String) -> Unit) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        DropdownField(label = label, selectedValue = selectedValue, onValueChange = onValueChange)
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(
-            onClick = { /* Handle OK */ },
-            colors = ButtonDefaults.buttonColors(Color(0xFF8DA9FF)),
-            modifier = Modifier.height(56.dp)
-        ) {
-            Text("OK", color = Color.White)
         }
     }
 }

@@ -88,6 +88,32 @@
             android:exported="true"
             android:theme="@style/Theme.Login">
         </activity>
+        <activity
+            android:name="com.example.presenz.HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+        <activity
+            android:name=".NotifikasiActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+        <activity
+            android:name=".LaporanAbsensiActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+        <activity
+            android:name="com.example.presenz.RekapPertemuanActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+        <activity
+            android:name="com.example.presenz.ArsipAbsensiActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login">
+        </activity>
+
     </application>
 
 </manifest>
